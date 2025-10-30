@@ -2,25 +2,6 @@
 
 BioNetDB implements a storage engine to work with biological networks using a NoSQL graph database. BioNetDB integrates relevant biological networks information from well-known data sources such as Reactome. All this data can be queried through command line interface.
 
-### Documentation
-You can find BioNetDB documentation and tutorials at: https://github.com/opencb/bionetdb/wiki.
-
-### Issues Tracking
-You can report bugs or request new features at [GitHub issue tracking](https://github.com/opencb/bionetdb/issues).
-
-### Release Notes and Roadmap
-Releases notes are available at [GitHub releases](https://github.com/opencb/bionetdb/releases).
-
-Roadmap is available at [GitHub milestones](https://github.com/opencb/bionetdb/milestones).
-
-### Versioning
-BioNetDB is versioned following the rules from [Semantic versioning](http://semver.org/).
-
-### Maintainers
-We recommend to contact BioNetDB developers by writing to BioNetDB mailing list opencb@googlegroups.com. The main developers and maintainers are:
-* Ignacio Medina (im411@cam.ac.uk) (_Founder and Project Leader_)
-* Daniel Perez-Gil  (daniel.perez@incliva.es)
-* Pedro Furio-Tari  (pfurio@cipf.es)
 
 ##### Contributing
 BioNetDB is an open-source and collaborative project. We appreciate any help and feedback from users, you can contribute in many different ways such as simple bug reporting and feature request. Depending on your skills you are more than welcome to develop client tools, new features or even fixing bugs.
