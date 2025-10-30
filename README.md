@@ -11,28 +11,3 @@ BioNetDB is mainly developed in Java and it uses [Apache Maven](http://maven.apa
 
 Stable releases are merged and tagged at **_master_** branch. You are encouraged to use latest stable release for production. Current active development is carried out at **_develop_** branch, only compilation is guaranteed and bugs are expected, use this branch for development or for testing new functionalities. Only dependencies of **_master_** branch are ensured to be deployed at [Maven Central Repository](http://search.maven.org/), **_develop_** branch may require users to download and install other active OpenCB repositories:
 
-### Cloning
-BioNetDB is an open-source and free project, you can download **_develop_** branch by executing:
-
-    $ git clone https://github.com/opencb/bionetdb.git
-
-Latest stable release at **_master_** branch can be downloaded executing:
-
-    $ git clone -b master https://github.com/opencb/bionetdb.git
-
-### Build
-You can build BioNetDB by executing the following command from the root of the cloned repository:
-  
-    $ mvn clean install -DskipTests
-    
-Remember that **_develop_** branch dependencies are not ensured to be deployed at Maven Central, you may need to clone and install **_develop_** branches from OpenCB _biodata_ and _datastore_ repositories.
-
-### Testing
-You can run the unit tests using Maven or your favorite IDE.
-
-### Command Line Interface (CLI)
-If the build process has gone well you should get an integrated help by executing:
-
-    $ ./bin/bionetdb.sh --help
-
-You can find more detailed documentation and tutorials at: https://github.com/opencb/bionetdb/wiki.
