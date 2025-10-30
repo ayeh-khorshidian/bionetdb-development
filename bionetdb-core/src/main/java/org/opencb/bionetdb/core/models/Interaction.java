@@ -1,0 +1,191 @@
+package org.opencb.bionetdb.core.models;
+
+import org.opencb.commons.datastore.core.ObjectMap;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by imedina on 10/08/15.
+ */
+@Deprecated
+public class Interaction {
+
+    protected String id;
+    protected String name;
+
+    protected Type type;
+
+
+    protected List<String> description;
+    protected List<String> source;
+    protected List<String> participants;
+    protected List<String> processOfPathway;
+    protected List<String> controlledBy;
+    protected List<Xref> xrefs;
+    protected List<Ontology> ontologies;
+    protected List<Publication> publications;
+
+    protected ObjectMap attributes;
+
+    public enum Type {
+        REACTION       ("reaction"),
+        CATALYSIS      ("catalysis"),
+        REGULATION     ("regulation"),
+        COLOCALIZATION ("colocalization");
+
+        private final String type;
+
+        Type(String type) {
+            this.type = type;
+        }
+    }
+
+    public Interaction() {
+        this.description = new ArrayList<>();
+        this.id = "";
+        this.name = "";
+
+        // init rest of attributes
+        init();
+    }
+
+    public Interaction(String id, String name, List<String> description, Type type) {
+        this.description = description;
+        this.id = id;
+        this.name = name;
+        this.type = type;
+
+        // init rest of attributes
+        init();
+    }
+
+    private void init() {
+        this.attributes = new ObjectMap();
+        this.source = new ArrayList<>();
+        this.participants = new ArrayList<>();
+        this.processOfPathway = new ArrayList<>();
+        this.controlledBy = new ArrayList<>();
+        this.xrefs = new ArrayList<>();
+        this.ontologies = new ArrayList<>();
+        this.publications = new ArrayList<>();
+    }
+
+    public List<String> getDescription() {
+        return description;
+    }
+
+    public void setDescription(List<String> description) {
+        // Replacing double quotes with single quotes
+        for (int index = 0; index < description.size(); index++) {
+            String desc = description.get(index).replace("\\\"", "\'").replace("\"", "\'");
+            description.set(index, desc);
+        }
+        this.description = description;
+    }
+
+    public List<String> getSource() {
+        return source;
+    }
+
+    public void setSource(List<String> source) {
+        this.source = source;
+    }
+
+    public List<String> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<String> participants) {
+        this.participants = participants;
+    }
+
+    public List<String> getProcessOfPathway() {
+        return processOfPathway;
+    }
+
+    public void setProcessOfPathway(List<String> processOfPathway) {
+        this.processOfPathway = processOfPathway;
+    }
+
+    public List<String> getControlledBy() {
+        return controlledBy;
+    }
+
+    public void setControlledBy(List<String> controlledOf) {
+        this.controlledBy = controlledOf;
+    }
+
+    public List<Xref> getXrefs() {
+        return xrefs;
+    }
+
+    public void setXrefs(List<Xref> xrefs) {
+        this.xrefs = xrefs;
+    }
+
+    public void setXref(Xref xref) {
+        // Adding xref unless it exists
+        boolean duplicate = false;
+        for (Xref currentXref : this.getXrefs()) {
+            if (xref.getSource().equals(currentXref.getSource())
+                    && xref.getSourceVersion().equals(currentXref.getSourceVersion())
+                    && xref.getId().equals(currentXref.getId())
+                    && xref.getIdVersion().equals(currentXref.getIdVersion())) {
+                duplicate = true;
+                break;
+            }
+        }
+        if (!duplicate) {
+            this.getXrefs().add(xref);
+        }
+    }
+
+    public List<Ontology> getOntologies() {
+        return ontologies;
+    }
+
+    public void setOntologies(List<Ontology> ontologies) {
+        this.ontologies = ontologies;
+    }
+
+    public void setOntology(Ontology ontology) {
+        // Adding ontology unless it exists
+        boolean duplicate = false;
+        for (Ontology currentOntology : this.getOntologies()) {
+            if (ontology.getSource().equals(currentOntology.getSource())
+                    && ontology.getSourceVersion().equals(currentOntology.getSourceVersion())
+                    && ontology.getId().equals(currentOntology.getId())
+                    && ontology.getIdVersion().equals(currentOntology.getIdVersion())) {
+                duplicate = true;
+                break;
+            }
+        }
+        if (!duplicate) {
+            this.getOntologies().add(ontology);
+        }
+    }
+
+    public List<Publication> getPublications() {
+        return publications;
+    }
+
+    public void setPublications(List<Publication> publications) {
+        this.publications = publications;
+    }
+
+    public void setPublication(Publication publication) {
+        // Adding publication unless it exists
+        boolean duplicate = false;
+        for (Publication currentPublication : this.getPublications()) {
+            if (publication.getSource().equals(currentPublication.getSource())
+                    && publication.getId().equals(currentPublication.getId())) {
+                duplicate = true;
+                break;
+            }
+        }
+        if (!duplicate) {
+            this.getPublications().add(publication);
+        }
+    }
+}
