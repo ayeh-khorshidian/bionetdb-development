@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.opencb.bionetdb</groupId>
+        <artifactId>bionetdb</artifactId>
+        <version>0.2.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>bionetdb-server</artifactId>
+    <version>${bionetdb.version}</version>
+    <packaging>war</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.opencb.bionetdb</groupId>
+            <artifactId>bionetdb-lib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.opencb.commons</groupId>
+            <artifactId>commons-datastore-core</artifactId>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.sbml.libsbml</groupId>-->
+            <!--<artifactId>libsbml</artifactId>-->
+            <!--<systemPath>${basedir}/../bionetdb-app/app/ext-libs/libsbmlj.jar</systemPath>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jsonSchema</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-jersey2-jaxrs</artifactId>
+            <version>1.5.9</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+        <finalName>bionetdb</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.8</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</outputDirectory>
+                            <includeScope>system</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <!--<warName>${opencga.war.name}</warName>-->
+                    <!--
+                      Exclude JCL and LOG4J since all logging should go through SLF4J.
+                      Note that we're excluding log4j-<version>.jar but keeping
+                      log4j-over-slf4j-<version>.jar
+                    -->
+                    <!--<packagingExcludes>-->
+                    <!--WEB-INF/lib/commons-logging-*.jar,-->
+                    <!--%regex[WEB-INF/lib/log4j-(?!over-slf4j).*.jar]-->
+                    <!--</packagingExcludes>-->
+                    <webResources>
+                        <resource>
+                            <directory>src/main/webapp/WEB-INF/</directory>
+                            <filtering>true</filtering>
+                            <targetPath>WEB-INF</targetPath>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
